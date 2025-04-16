@@ -1,0 +1,8 @@
+rootProject.name = 'ecommerce'
+include 'command-service'
+include 'command-service:application'
+include 'command-service:api'
+include 'command-service:input-boundary'
+include 'command-service:output-boundary'
+include 'command-service:repository'
+include 'command-service:usecases'

@@ -1,0 +1,4 @@
+dependencies {
+    implementation(project(':command-service:input-boundary'))
+    implementation(project(':command-service:output-boundary'))
+}
