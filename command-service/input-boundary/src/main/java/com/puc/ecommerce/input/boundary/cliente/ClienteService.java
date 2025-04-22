@@ -4,9 +4,9 @@ import com.puc.ecommerce.input.boundary.cliente.dto.ClienteInput;
 import com.puc.ecommerce.input.boundary.cliente.dto.ClienteUpdateInput;
 
 public interface ClienteService {
-    void cadastrarCliente(ClienteInput clienteInput) throws Exception;
+    void cadastrarCliente(ClienteInput clienteInput);
 
-    void atualizarCliente(ClienteUpdateInput clienteInput, Long id) throws Exception;
+    void atualizarCliente(ClienteUpdateInput clienteInput, Long id);
 
-    void deletarCliente(Long id) throws Exception;
+    void deletarCliente(Long id);
 }

@@ -14,21 +14,23 @@ public class ClienteRepositoryServiceImpl implements ClienteRepository {
 
     private ClienteRepositoryJPA clienteRepositoryJPA;
 
+    // Verifica se o cliente já existe
+    public Boolean clienteExistentePorDocumento(String documento) {
+        return clienteRepositoryJPA.existsByDocumento(documento);
+    }
+
     @Override
     @Transactional
-    public void cadastrarCliente(ClienteOutput cliente) throws Exception {
+    public void cadastrarCliente(ClienteOutput cliente) {
         // Implementação do método para cadastrar cliente
         clienteRepositoryJPA.save(ClienteDataMapper.toEntity(cliente));
     }
 
     @Override
     @Transactional
-    public void atualizarCliente(ClienteOutput cliente, Long id) throws Exception {
-        // Implementação do método para atualizar cliente
-
+    public void atualizarCliente(ClienteOutput cliente, Long id) {
         // Verifica se o cliente existe
-        var clienteOld = clienteRepositoryJPA.findById(id)
-                .orElseThrow(() -> new Exception("Cliente não encontrado"));
+        var clienteOld = clienteRepositoryJPA.findById(id).get();
 
         var newCliente = ClienteDataMapper.toEntityUpdate(clienteOld, cliente);
 
@@ -37,11 +39,14 @@ public class ClienteRepositoryServiceImpl implements ClienteRepository {
 
     }
 
+    // metodo para verificar se o cliente existe
+    public Boolean clienteExistentePorId(Long id) {
+        return clienteRepositoryJPA.existsById(id);
+    }
+
     @Override
     public void deletarCliente(Long id) throws Exception {
         // Verifica se o cliente existe
-        if(clienteRepositoryJPA.existsById(id)){
-            clienteRepositoryJPA.deleteById(id);
-        }else new Exception("Cliente não encontrado");
+        clienteRepositoryJPA.deleteById(id);
     }
 }
