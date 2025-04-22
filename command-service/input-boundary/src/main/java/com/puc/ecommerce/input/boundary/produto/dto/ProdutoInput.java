@@ -25,4 +25,8 @@ public class ProdutoInput {
     @NotNull(message = "Preço é obrigatório")
     @Positive(message = "Preço deve ser maior que zero")
     private BigDecimal preco;
+
+    @NotNull(message = "Quantidade em estoque é obrigatória")
+    @Positive(message = "Quantidade em estoque deve ser maior que zero")
+    private Integer quantidadeEstoque;
 }

@@ -12,6 +12,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Data
 @Entity
@@ -34,4 +35,10 @@ public class ProdutoEntity {
 
     @Column(name = "preco", nullable = false, precision = 10, scale = 2)
     private BigDecimal preco;
+
+    @Column(nullable = false)
+    private LocalDateTime dataHoraCriacao;
+
+    @Column(nullable = false)
+    private LocalDateTime dataHoraAtualizacao;
 }

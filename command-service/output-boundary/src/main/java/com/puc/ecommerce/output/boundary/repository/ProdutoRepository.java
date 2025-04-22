@@ -1,15 +1,20 @@
 package com.puc.ecommerce.output.boundary.repository;
 
-import com.puc.ecommerce.output.boundary.produto.ProdutoByIdOutput;
+import com.puc.ecommerce.output.boundary.produto.ProdutoDatabaseOutput;
+import com.puc.ecommerce.output.boundary.produto.ProdutoOutput;
+
+import java.util.Optional;
 
 public interface ProdutoRepository {
-    void criarProduto(ProdutoByIdOutput produtoOutput);
+    ProdutoDatabaseOutput criarProduto(ProdutoDatabaseOutput produtoOutput);
 
-    void atualizarProduto(Long id, ProdutoByIdOutput produtoOutput) throws Exception;
+    void atualizarProduto(ProdutoDatabaseOutput produtoOutput) throws Exception;
 
     void deletarProduto(Long id) throws Exception;
 
     Boolean produtoExistente(Long id);
 
-    ProdutoByIdOutput buscarProdutoPorId(Long id);
+    Boolean produtoExistenteByNome(String nome);
+
+    Optional<ProdutoDatabaseOutput> buscarProdutoPorId(Long id);
 }
