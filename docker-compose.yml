@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  command-db:
+    image: postgres:15-alpine
+    container_name: command-db
+    environment:
+      POSTGRES_DB: ecommerce_command
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - command-db-data:/var/lib/postgresql/data
+    networks:
+      - ecommerce-network
+
+  query-db:
+    image: postgres:15-alpine
+    container_name: query-db
+    environment:
+      POSTGRES_DB: ecommerce_query
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - query-db-data:/var/lib/postgresql/data
+    networks:
+      - ecommerce-network
+
+  rabbitmq:
+    image: rabbitmq:3.12-management-alpine
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+    networks:
+      - ecommerce-network
+
+volumes:
+  command-db-data:
+  query-db-data:
+  rabbitmq-data:
+
+networks:
+  ecommerce-network:
+    driver: bridge
