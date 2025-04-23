@@ -1,6 +1,7 @@
 package com.puc.ecommerce.repository.cliente.entities;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @Table(name = "clientes")
+@Builder
 public class ClienteEntity {
 
     @Id
@@ -26,10 +28,17 @@ public class ClienteEntity {
     @Column(nullable = false, length = 15)
     private String telefone;
 
+    @Embedded
+    @Column(nullable = false)
+    private EnderecoEntity endereco;
+
     @Column(nullable = false)
     private String senha;
 
     @Column(nullable = false)
-    private LocalDateTime dataHoraCadastro = LocalDateTime.now();
+    private LocalDateTime dataHoraCadastro;
+
+    @Column(nullable = false)
+    private LocalDateTime dataHoraAtualizacao;
 
 }

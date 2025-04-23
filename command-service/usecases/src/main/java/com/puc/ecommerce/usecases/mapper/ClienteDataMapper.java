@@ -7,22 +7,24 @@ import com.puc.ecommerce.input.boundary.cliente.dto.ClienteUpdateInput;
 public class ClienteDataMapper {
 
     public static ClienteOutput toOutput(ClienteInput input) {
-        var output = new ClienteOutput();
-        output.setNome(input.getNome());
-        output.setEmail(input.getEmail());
-        output.setDocumento(input.getDocumento());
-        output.setTelefone(input.getTelefone());
-        output.setSenha(input.getSenha());
-        return output;
+        return ClienteOutput.builder()
+                .nome(input.getNome())
+                .email(input.getEmail())
+                .documento(input.getDocumento())
+                .telefone(input.getTelefone())
+                .endereco(EnderecoDataMapper.toOutput(input.getEndereco()))
+                .senha(input.getSenha())
+                .build();
     }
 
     public static ClienteOutput toUpdateOutput(ClienteUpdateInput input) {
-        var output = new ClienteOutput();
-        output.setNome(input.getNome());
-        output.setEmail(input.getEmail());
-        output.setTelefone(input.getTelefone());
-        output.setSenha(input.getSenha());
-        return output;
+        return ClienteOutput.builder()
+                .nome(input.getNome())
+                .email(input.getEmail())
+                .telefone(input.getTelefone())
+                .senha(input.getSenha())
+                .endereco(EnderecoDataMapper.toOutput(input.getEndereco()))
+                .build();
     }
 
 }

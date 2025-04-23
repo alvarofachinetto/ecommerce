@@ -19,6 +19,8 @@ public class ClienteUpdateInput {
     @Size(max = 15, message = "O número de telefone não pode exceder 15 caracteres")
     private String telefone;
 
+    private EnderecoInput endereco;
+
     @NotBlank(message = "Senha é obrigatória")
     @Size(min = 8, max = 20, message = "A senha deve ter entre 8 e 20 caracteres")
     private String senha;
