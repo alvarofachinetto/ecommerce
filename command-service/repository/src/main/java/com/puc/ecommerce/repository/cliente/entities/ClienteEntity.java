@@ -1,8 +1,10 @@
 package com.puc.ecommerce.repository.cliente.entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
@@ -10,6 +12,8 @@ import java.time.LocalDateTime;
 @Data
 @Table(name = "clientes")
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClienteEntity {
 
     @Id

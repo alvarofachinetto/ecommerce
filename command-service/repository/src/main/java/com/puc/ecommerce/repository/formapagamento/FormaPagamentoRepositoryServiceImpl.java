@@ -27,4 +27,9 @@ public class FormaPagamentoRepositoryServiceImpl implements FormaPagamentoReposi
     public void remover(Long id) {
         formaPagamentoRepositoryJPA.deleteById(id);
     }
+
+    @Override
+    public Boolean existeFormaPagamento(String tipoPagamento) {
+        return formaPagamentoRepositoryJPA.existsByTipoPagamento(tipoPagamento);
+    }
 }

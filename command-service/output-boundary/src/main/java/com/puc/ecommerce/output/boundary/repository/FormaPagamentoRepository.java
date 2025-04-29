@@ -10,4 +10,6 @@ public interface FormaPagamentoRepository {
 
     void remover(Long id);
 
+    Boolean existeFormaPagamento(String tipoPagamento);
+
 }

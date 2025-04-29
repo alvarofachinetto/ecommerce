@@ -8,6 +8,8 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Component
 @AllArgsConstructor
 public class ClienteRepositoryServiceImpl implements ClienteRepository {
@@ -17,6 +19,11 @@ public class ClienteRepositoryServiceImpl implements ClienteRepository {
     // Verifica se o cliente já existe
     public Boolean clienteExistentePorDocumento(String documento) {
         return clienteRepositoryJPA.existsByDocumento(documento);
+    }
+
+    @Override
+    public Optional<ClienteOutput> buscarClientePorDocumento(String documento) {
+        return Optional.of(ClienteDataMapper.toOutput(clienteRepositoryJPA.findByDocumento(documento)));
     }
 
     @Override

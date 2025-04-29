@@ -2,6 +2,8 @@ package com.puc.ecommerce.output.boundary.repository;
 
 import com.puc.ecommerce.output.boundary.cliente.ClienteOutput;
 
+import java.util.Optional;
+
 public interface ClienteRepository {
 
     void cadastrarCliente(ClienteOutput clienteOutput);
@@ -13,4 +15,6 @@ public interface ClienteRepository {
     Boolean clienteExistentePorId(Long id);
 
     Boolean clienteExistentePorDocumento(String documento);
+
+    Optional<ClienteOutput> buscarClientePorDocumento(String documento);
 }

@@ -14,8 +14,6 @@ import static org.springframework.transaction.annotation.Propagation.REQUIRES_NE
 @AllArgsConstructor
 public class EstoqueUsecase implements EstoqueService {
 
-    private ProdutoRepository produtoRepository;
-
     private EstoqueRepository estoqueRepository;
 
     @Override

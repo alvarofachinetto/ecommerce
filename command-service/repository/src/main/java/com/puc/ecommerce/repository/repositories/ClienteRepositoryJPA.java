@@ -16,4 +16,6 @@ public interface ClienteRepositoryJPA extends JpaRepository<ClienteEntity, Long>
 
     @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM ClienteEntity c WHERE c.documento = :documento")
     Boolean existsByDocumento(@Param("documento") String documento);
+
+    ClienteEntity findByDocumento(String documento);
 }
