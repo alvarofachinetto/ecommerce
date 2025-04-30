@@ -62,7 +62,7 @@ public class ProdutoUseCase implements ProdutoService {
                     }
             );
         } catch (Exception e) {
-            throw new CustomException("Erro ao atualizar produto: " + e.getMessage(), e);
+            throw new RuntimeException("Erro ao atualizar produto: " + e.getMessage(), e);
         }
     }
 
@@ -82,7 +82,7 @@ public class ProdutoUseCase implements ProdutoService {
             estoqueRepository.removerProdutoEstoque(id);
             produtoRepository.deletarProduto(id);
         } catch (Exception e) {
-            throw new CustomException("Erro ao deletar produto: " + e.getMessage(), e);
+            throw new RuntimeException("Erro ao deletar produto: " + e.getMessage(), e);
         }
     }
 }

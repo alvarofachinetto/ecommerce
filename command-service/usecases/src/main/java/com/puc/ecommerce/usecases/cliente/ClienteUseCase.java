@@ -24,7 +24,7 @@ public class ClienteUseCase implements ClienteService {
             }
             clienteRepository.cadastrarCliente(ClienteDataMapper.toOutput(clienteInput));
         }catch (Exception e){
-            throw new CustomException("Erro ao cadastrar cliente: " + e.getMessage(), e);
+            throw new RuntimeException("Erro ao cadastrar cliente: " + e.getMessage(), e);
         }
     }
 
@@ -36,7 +36,7 @@ public class ClienteUseCase implements ClienteService {
                 clienteRepository.atualizarCliente(ClienteDataMapper.toUpdateOutput(clienteInput), id);
             } else throw new CustomException("Cliente não encontrado");
         }catch (Exception e){
-            throw new CustomException("Erro ao atualizar cliente: " + e.getMessage(), e);
+            throw new RuntimeException("Erro ao atualizar cliente: " + e.getMessage(), e);
         }
     }
 
@@ -47,7 +47,7 @@ public class ClienteUseCase implements ClienteService {
                 clienteRepository.deletarCliente(id);
             } else throw new CustomException("Cliente não encontrado");
         }catch (Exception e){
-            throw new CustomException("Erro ao deletar cliente: " + e.getMessage(), e);
+            throw new RuntimeException("Erro ao deletar cliente: " + e.getMessage(), e);
         }
     }
 }
