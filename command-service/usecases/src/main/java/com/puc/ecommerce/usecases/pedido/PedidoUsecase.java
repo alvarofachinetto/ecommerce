@@ -42,9 +42,9 @@ public class PedidoUsecase implements PedidoService {
             pedidoRepository.confirmarPedido(pedidoOutput);
 
             //remove os itens do pedido no estoque
-//        pedidoInput.getItens().forEach(item -> {
-//            estoqueUsecase.removerProdutoEstoque(item.getProdutoId(), item.getQuantidade());
-//        });
+            pedidoInput.getItens().forEach(item -> {
+                estoqueUsecase.removerProdutoEstoque(item.getProdutoId(), item.getQuantidade());
+            });
         }catch (Exception e){
             throw new RuntimeException(e);
         }
@@ -52,6 +52,6 @@ public class PedidoUsecase implements PedidoService {
 
     @Override
     public void cancelarPedido(Long id) {
-
+        //TODO alterar status e devolver produto ao estoque
     }
 }

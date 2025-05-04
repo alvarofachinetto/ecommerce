@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
+import static com.puc.ecommerce.repository.mapper.ClienteDataMapper.toOutput;
+
 @Component
 @AllArgsConstructor
 public class ClienteRepositoryServiceImpl implements ClienteRepository {
@@ -19,30 +21,31 @@ public class ClienteRepositoryServiceImpl implements ClienteRepository {
     // Verifica se o cliente já existe
     public Boolean clienteExistentePorDocumento(String documento) {
         return clienteRepositoryJPA.existsByDocumento(documento);
+
     }
 
     @Override
     public Optional<ClienteOutput> buscarClientePorDocumento(String documento) {
-        return Optional.of(ClienteDataMapper.toOutput(clienteRepositoryJPA.findByDocumento(documento)));
+        return Optional.of(toOutput(clienteRepositoryJPA.findByDocumento(documento)));
     }
 
     @Override
     @Transactional
-    public void cadastrarCliente(ClienteOutput cliente) {
+    public ClienteOutput cadastrarCliente(ClienteOutput cliente) {
         // Implementação do método para cadastrar cliente
-        clienteRepositoryJPA.save(ClienteDataMapper.toEntity(cliente));
+        return toOutput(clienteRepositoryJPA.save(ClienteDataMapper.toEntity(cliente))) ;
     }
 
     @Override
     @Transactional
-    public void atualizarCliente(ClienteOutput cliente, Long id) {
+    public ClienteOutput atualizarCliente(ClienteOutput cliente, Long id) {
         // Verifica se o cliente existe
         var clienteOld = clienteRepositoryJPA.findById(id).get();
 
         var newCliente = ClienteDataMapper.toEntityUpdate(clienteOld, cliente);
 
         // Atualiza os dados do cliente
-        clienteRepositoryJPA.updateCliente(id, newCliente.getNome(), newCliente.getEmail(), newCliente.getTelefone(), newCliente.getSenha());
+        return toOutput(clienteRepositoryJPA.updateCliente(id, newCliente.getNome(), newCliente.getEmail(), newCliente.getTelefone(), newCliente.getSenha()));
 
     }
 

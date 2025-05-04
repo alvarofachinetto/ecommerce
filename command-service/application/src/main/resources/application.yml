@@ -5,10 +5,15 @@ spring:
   application:
     name: command-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/ecommerce
+    url: jdbc:postgresql://localhost:5432/ecommerce_command
     username: postgres
     password: postgres
     driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 5
+      minimum-idle: 2
+      connection-timeout: 20000
+      initialization-fail-timeout: 30000
   jpa:
     hibernate:
       ddl-auto: update
@@ -16,3 +21,9 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
+
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer

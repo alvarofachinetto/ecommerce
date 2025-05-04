@@ -12,6 +12,8 @@ services:
       - "5432:5432"
     volumes:
       - command-db-data:/var/lib/postgresql/data
+      - ./postgres/command-db/postgresql.conf:/etc/postgresql/postgresql.conf
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
     networks:
       - ecommerce-network
 
@@ -26,20 +28,57 @@ services:
       - "5433:5432"
     volumes:
       - query-db-data:/var/lib/postgresql/data
+      - ./postgres/query-db/postgresql.conf:/etc/postgresql/postgresql.conf
+    command: postgres -c config_file=/etc/postgresql/postgresql.conf
     networks:
       - ecommerce-network
 
-  rabbitmq:
-    image: rabbitmq:3.12-management-alpine
-    container_name: rabbitmq
-    ports:
-      - "5672:5672"
-      - "15672:15672"
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.3.0
+    container_name: zookeeper
     environment:
-      RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
-    volumes:
-      - rabbitmq-data:/var/lib/rabbitmq
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - ecommerce-network
+
+  kafka:
+    image: confluentinc/cp-kafka:7.3.0
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENERS: PLAINTEXT://kafka:29092,PLAINTEXT_HOST://0.0.0.0:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - ecommerce-network
+
+  connect:
+    image: debezium/connect:2.3
+    container_name: connect
+    depends_on:
+      - kafka
+      - command-db
+    ports:
+      - "8083:8083"
+    environment:
+      GROUP_ID: 1
+      BOOTSTRAP_SERVERS: kafka:29092
+      CONFIG_STORAGE_TOPIC: connect_configs
+      OFFSET_STORAGE_TOPIC: connect_offsets
+      STATUS_STORAGE_TOPIC: connect_statuses
+      KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
+      CONNECT_KEY_CONVERTER_SCHEMAS_ENABLE: "false"
+      CONNECT_VALUE_CONVERTER_SCHEMAS_ENABLE: "false"
     networks:
       - ecommerce-network
 

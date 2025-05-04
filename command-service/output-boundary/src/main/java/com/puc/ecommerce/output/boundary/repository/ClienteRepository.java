@@ -6,9 +6,9 @@ import java.util.Optional;
 
 public interface ClienteRepository {
 
-    void cadastrarCliente(ClienteOutput clienteOutput);
+    ClienteOutput cadastrarCliente(ClienteOutput clienteOutput);
 
-    void atualizarCliente(ClienteOutput clienteOutput, Long id);
+    ClienteOutput atualizarCliente(ClienteOutput clienteOutput, Long id);
 
     void deletarCliente(Long id) throws Exception;
 

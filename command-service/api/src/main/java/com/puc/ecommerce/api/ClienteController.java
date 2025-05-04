@@ -3,6 +3,7 @@ package com.puc.ecommerce.api;
 import com.puc.ecommerce.input.boundary.cliente.ClienteService;
 import com.puc.ecommerce.input.boundary.cliente.dto.ClienteInput;
 import com.puc.ecommerce.input.boundary.cliente.dto.ClienteUpdateInput;
+import com.puc.ecommerce.output.boundary.cliente.ClienteOutput;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +51,11 @@ public class ClienteController {
      * @return uma resposta indicando o sucesso ou falha da operação
      */
 
-    @PostMapping("/deletar/{id}")
+    @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Void> deletarCliente(@PathVariable Long id) throws Exception {
         // Implementar a lógica para deletar o usuário
         clienteService.deletarCliente(id);
         return ResponseEntity.noContent().build();
     }
+
 }

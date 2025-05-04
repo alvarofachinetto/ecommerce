@@ -6,14 +6,14 @@ import com.puc.ecommerce.input.boundary.cliente.dto.ClienteUpdateInput;
 import com.puc.ecommerce.output.boundary.exception.CustomException;
 import com.puc.ecommerce.output.boundary.repository.ClienteRepository;
 import com.puc.ecommerce.usecases.mapper.ClienteDataMapper;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ClienteUseCase implements ClienteService {
 
-    private ClienteRepository clienteRepository;
+    private final ClienteRepository clienteRepository;
 
     @Override
     public void cadastrarCliente(ClienteInput clienteInput) {
@@ -22,7 +22,7 @@ public class ClienteUseCase implements ClienteService {
             if (clienteRepository.clienteExistentePorDocumento(clienteInput.getDocumento())) {
                 throw new CustomException("Cliente já cadastrado com o documento: " + clienteInput.getDocumento());
             }
-            clienteRepository.cadastrarCliente(ClienteDataMapper.toOutput(clienteInput));
+            var cliente = clienteRepository.cadastrarCliente(ClienteDataMapper.toOutput(clienteInput));
         }catch (Exception e){
             throw new RuntimeException("Erro ao cadastrar cliente: " + e.getMessage(), e);
         }
