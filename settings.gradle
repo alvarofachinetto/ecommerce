@@ -16,3 +16,6 @@ findProject(':query-service:repository')?.name = 'repository'
 include 'shared-library'
 include 'replication-service'
 
+
+include 'query-service:output-boundary'
+include 'query-service:application'
