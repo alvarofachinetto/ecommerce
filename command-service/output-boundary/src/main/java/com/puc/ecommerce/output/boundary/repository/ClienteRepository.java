@@ -3,18 +3,17 @@ package com.puc.ecommerce.output.boundary.repository;
 import com.puc.ecommerce.output.boundary.cliente.ClienteOutput;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public interface ClienteRepository {
 
-    void cadastrarCliente(ClienteOutput clienteOutput);
+    ClienteOutput cadastrarCliente(ClienteOutput clienteOutput);
 
-    void atualizarCliente(ClienteOutput clienteOutput, Long id);
+    ClienteOutput atualizarCliente(ClienteOutput clienteOutput, UUID keycloakId);
 
-    void deletarCliente(Long id) throws Exception;
+    void deletarCliente(UUID KeycloakId) throws Exception;
 
-    Boolean clienteExistentePorId(Long id);
+    Boolean clienteExistentePorKeycloakId(UUID keycloakId);
 
-    Boolean clienteExistentePorDocumento(String documento);
-
-    Optional<ClienteOutput> buscarClientePorDocumento(String documento);
+    Optional<ClienteOutput> buscarClientePorKeycloakId(UUID keycloakId);
 }

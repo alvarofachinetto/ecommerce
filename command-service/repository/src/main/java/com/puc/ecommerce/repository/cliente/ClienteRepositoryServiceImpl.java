@@ -9,6 +9,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.UUID;
+
+import static com.puc.ecommerce.repository.mapper.ClienteDataMapper.toOutput;
 
 @Component
 @AllArgsConstructor
@@ -17,43 +20,39 @@ public class ClienteRepositoryServiceImpl implements ClienteRepository {
     private ClienteRepositoryJPA clienteRepositoryJPA;
 
     // Verifica se o cliente já existe
-    public Boolean clienteExistentePorDocumento(String documento) {
-        return clienteRepositoryJPA.existsByDocumento(documento);
+    public Boolean clienteExistentePorKeycloakId(UUID KeycloakId) {
+        return clienteRepositoryJPA.existsByKeycloakId(KeycloakId);
+
     }
 
     @Override
-    public Optional<ClienteOutput> buscarClientePorDocumento(String documento) {
-        return Optional.of(ClienteDataMapper.toOutput(clienteRepositoryJPA.findByDocumento(documento)));
+    public Optional<ClienteOutput> buscarClientePorKeycloakId(UUID KeycloakId) {
+        return Optional.of(toOutput(clienteRepositoryJPA.findByKeycloakId(KeycloakId).get()));
     }
 
     @Override
     @Transactional
-    public void cadastrarCliente(ClienteOutput cliente) {
+    public ClienteOutput cadastrarCliente(ClienteOutput cliente) {
         // Implementação do método para cadastrar cliente
-        clienteRepositoryJPA.save(ClienteDataMapper.toEntity(cliente));
+        return toOutput(clienteRepositoryJPA.save(ClienteDataMapper.toEntity(cliente))) ;
     }
 
     @Override
     @Transactional
-    public void atualizarCliente(ClienteOutput cliente, Long id) {
+    public ClienteOutput atualizarCliente(ClienteOutput cliente, UUID keycloakId) {
         // Verifica se o cliente existe
-        var clienteOld = clienteRepositoryJPA.findById(id).get();
+        var clienteOld = clienteRepositoryJPA.findByKeycloakId(keycloakId).get();
 
         var newCliente = ClienteDataMapper.toEntityUpdate(clienteOld, cliente);
 
         // Atualiza os dados do cliente
-        clienteRepositoryJPA.updateCliente(id, newCliente.getNome(), newCliente.getEmail(), newCliente.getTelefone(), newCliente.getSenha());
-
+        return toOutput(clienteRepositoryJPA.updateCliente(keycloakId, newCliente.getTelefone(), newCliente.getEndereco()));
     }
 
-    // metodo para verificar se o cliente existe
-    public Boolean clienteExistentePorId(Long id) {
-        return clienteRepositoryJPA.existsById(id);
-    }
 
     @Override
-    public void deletarCliente(Long id) throws Exception {
+    public void deletarCliente(UUID KeycloakId) throws Exception {
         // Verifica se o cliente existe
-        clienteRepositoryJPA.deleteById(id);
+        clienteRepositoryJPA.deleteByKeycloakId(KeycloakId);
     }
 }
