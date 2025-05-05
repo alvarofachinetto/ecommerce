@@ -16,3 +16,5 @@ findProject(':query-service:repository')?.name = 'repository'
 include 'shared-library'
 include 'replication-service'
 
+
+include 'shared-library:security'

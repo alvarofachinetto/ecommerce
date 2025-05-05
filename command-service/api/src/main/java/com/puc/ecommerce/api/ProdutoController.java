@@ -6,6 +6,7 @@ import com.puc.ecommerce.input.boundary.produto.dto.ProdutoUpdateInput;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +16,7 @@ public class ProdutoController {
 
     private final ProdutoService produtoService;
 
+    @PreAuthorize("hasRole('PRODUTO_ADICIONAR')")
     @PostMapping("/adicionar")
     public ResponseEntity<String> criarProduto(@Valid @RequestBody ProdutoInput produtoInput) throws Exception {
         produtoService.criarProduto(produtoInput);
