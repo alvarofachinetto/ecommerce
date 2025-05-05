@@ -43,6 +43,18 @@ services:
     networks:
       - ecommerce-network
 
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.1.4
+    environment:
+      - KC_BOOTSTRAP_ADMIN_USERNAME=admin
+      - KC_BOOTSTRAP_ADMIN_PASSWORD=admin
+    ports:
+      - "7001:8080"
+    command: start-dev --features authorization,organization
+    restart: unless-stopped
+    networks:
+      - ecommerce-network
+
 volumes:
   command-db-data:
   query-db-data:

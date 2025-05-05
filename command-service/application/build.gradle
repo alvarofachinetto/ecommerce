@@ -5,4 +5,5 @@ dependencies {
     implementation(project(':command-service:repository'))
     implementation(project(':command-service:api'))
     implementation(project(':command-service:usecases'))
+    implementation(project(':shared-library:security'))
 }
