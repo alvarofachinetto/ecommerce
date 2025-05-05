@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -20,11 +21,8 @@ public class ClienteEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 100)
-    private String nome;
-
     @Column(nullable = false, unique = true)
-    private String email;
+    private UUID keycloakId;
 
     @Column(nullable = false, unique = true, length = 11)
     private String documento;
@@ -35,9 +33,6 @@ public class ClienteEntity {
     @Embedded
     @Column(nullable = false)
     private EnderecoEntity endereco;
-
-    @Column(nullable = false)
-    private String senha;
 
     @Column(nullable = false)
     private LocalDateTime dataHoraCadastro;

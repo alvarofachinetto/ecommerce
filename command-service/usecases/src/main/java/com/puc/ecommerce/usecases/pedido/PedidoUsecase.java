@@ -28,7 +28,7 @@ public class PedidoUsecase implements PedidoService {
     public void criarPedido(PedidoInput pedidoInput) {
         try{
             // Verifica se a forma de pagamento existe
-            var cliente = clienteRepository.buscarClientePorDocumento(pedidoInput.getDocumneto()).orElseThrow(
+            var cliente = clienteRepository.buscarClientePorKeycloakId(pedidoInput.getKeycloakId()).orElseThrow(
                     () -> new CustomException("Cliente não encontrado")
             );
 
