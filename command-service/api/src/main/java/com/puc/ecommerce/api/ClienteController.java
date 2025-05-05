@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/v1/clientes")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
@@ -37,9 +39,9 @@ public class ClienteController {
      * @return uma resposta indicando o sucesso ou falha da operação
      */
     @PostMapping("/atualizar/{id}")
-    public ResponseEntity<String> atualizarCliente(@RequestBody @Valid ClienteUpdateInput clienteInput, @PathVariable Long id) throws Exception {
+    public ResponseEntity<String> atualizarCliente(@RequestBody @Valid ClienteUpdateInput clienteInput, @PathVariable UUID keycloakId) throws Exception {
         // Implementar a lógica para atualizar o usuário
-        clienteService.atualizarCliente(clienteInput, id);
+        clienteService.atualizarCliente(clienteInput, keycloakId);
         return ResponseEntity.ok("Cliente atualizado com sucesso");
     }
 
@@ -50,10 +52,10 @@ public class ClienteController {
      * @return uma resposta indicando o sucesso ou falha da operação
      */
 
-    @PostMapping("/deletar/{id}")
-    public ResponseEntity<Void> deletarCliente(@PathVariable Long id) throws Exception {
+    @DeleteMapping("/deletar/{id}")
+    public ResponseEntity<Void> deletarCliente(@PathVariable UUID keycloakId) throws Exception {
         // Implementar a lógica para deletar o usuário
-        clienteService.deletarCliente(id);
+        clienteService.deletarCliente(keycloakId);
         return ResponseEntity.noContent().build();
     }
 }
