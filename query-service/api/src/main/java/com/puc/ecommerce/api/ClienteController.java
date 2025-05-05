@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/clientes")
 @AllArgsConstructor(onConstructor = @__(@Autowired))
-public class ClientController {
+public class ClienteController {
 
     private ClienteService clienteService;
 
@@ -19,12 +19,5 @@ public class ClientController {
 
         return ResponseEntity.ok(clienteService.buscarclientes(id));
     }
-
-    @GetMapping()
-    public String teste() throws Exception {
-
-        return "ok";
-    }
-
 
 }
