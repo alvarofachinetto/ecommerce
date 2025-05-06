@@ -1,7 +1,6 @@
 package com.puc.ecommerce.repository.mapper;
 
 import com.puc.ecommerce.output.boundary.cliente.ClienteOutput;
-import com.puc.ecommerce.output.boundary.pedido.ClientePedidoOutput;
 import com.puc.ecommerce.repository.cliente.entities.ClienteEntity;
 
 import java.time.LocalDateTime;
@@ -10,12 +9,9 @@ public class ClienteDataMapper {
 
     public static ClienteEntity toEntity(ClienteOutput clienteOutput) {
         return ClienteEntity.builder()
-                .nome(clienteOutput.getNome())
-                .email(clienteOutput.getEmail())
                 .documento(clienteOutput.getDocumento())
                 .telefone(clienteOutput.getTelefone())
                 .endereco(EnderecoDataMapper.toEntity(clienteOutput.getEndereco()))
-                .senha(clienteOutput.getSenha())
                 .dataHoraCadastro(LocalDateTime.now())
                 .dataHoraAtualizacao(LocalDateTime.now())
                 .build();
@@ -34,12 +30,9 @@ public class ClienteDataMapper {
     public static ClienteOutput toOutput(ClienteEntity clienteEntity) {
         return ClienteOutput.builder()
                 .id(clienteEntity.getId())
-                .nome(clienteEntity.getNome())
-                .email(clienteEntity.getEmail())
                 .documento(clienteEntity.getDocumento())
                 .telefone(clienteEntity.getTelefone())
                 .endereco(EnderecoDataMapper.toOutput(clienteEntity.getEndereco()))
-                .senha(clienteEntity.getSenha())
                 .build();
     }
 }

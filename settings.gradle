@@ -19,3 +19,4 @@ include 'replication-service'
 
 include 'query-service:output-boundary'
 include 'query-service:application'
+include 'shared-library:security'

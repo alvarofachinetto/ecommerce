@@ -1,4 +1,5 @@
 dependencies {
     implementation(project(':command-service:input-boundary'))
     implementation(project(':command-service:output-boundary'))
+    implementation(project(':shared-library:security'))
 }
