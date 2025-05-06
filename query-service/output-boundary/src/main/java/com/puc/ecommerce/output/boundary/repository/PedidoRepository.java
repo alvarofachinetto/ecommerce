@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface PedidoRepository {
-    List<PedidoOutput> buscarPedidoPorNome(String nome);
+    List<PedidoOutput> buscarPedidoPorCliente(Long idCliente);
     Optional<PedidoOutput> buscarPedidoPorId(Long id);
 }

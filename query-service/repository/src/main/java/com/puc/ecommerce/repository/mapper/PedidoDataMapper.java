@@ -73,4 +73,21 @@ public class PedidoDataMapper {
                 .telefone(entity.getTelefone())
                 .build();
     }
+
+    public static List<PedidoOutput> toListPedidoCliente (List<PedidoEntity> pedidos) {
+        return pedidos.stream()
+                .map(pedido -> PedidoOutput.builder()
+                        .cliente(toClientePedidoOutput(pedido.getCliente()))
+                        .itens(mapItensToOutput(pedido))
+                        .endereco(EnderecoDataMapper.toOutput(pedido.getEndereco()))
+                        .status(pedido.getStatus())
+                        .dataPedido(pedido.getDataPedido())
+                        .formaPagamento(pedido.getFormaPagamento())
+                        .valorTotal(pedido.getValorTotal())
+                        .build())
+                .collect(Collectors.toList());
+
+    }
+
+
 }
