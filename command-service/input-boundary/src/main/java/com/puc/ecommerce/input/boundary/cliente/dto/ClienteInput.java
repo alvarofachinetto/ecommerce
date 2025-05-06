@@ -1,6 +1,5 @@
 package com.puc.ecommerce.input.boundary.cliente.dto;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
@@ -11,7 +10,6 @@ import java.util.UUID;
 @Data
 public class ClienteInput {
 
-    @NotBlank(message = "keycloakId é obrigatório")
     private UUID keycloakId;
 
     @NotBlank(message = "Documento é obrigatório")

@@ -57,8 +57,8 @@ public class PedidoDataMapper {
     public static ClienteEntity toClientePedidoEntity(ClientePedidoOutput clientePedidoOutput) {
         return ClienteEntity.builder()
                 .id(clientePedidoOutput.getId())
-                .nome(clientePedidoOutput.getNome())
-                .email(clientePedidoOutput.getEmail())
+//                .nome(clientePedidoOutput.getNome())
+//                .email(clientePedidoOutput.getEmail())
                 .documento(clientePedidoOutput.getDocumento())
                 .telefone(clientePedidoOutput.getTelefone())
                 .build();
@@ -67,8 +67,8 @@ public class PedidoDataMapper {
     public static ClientePedidoOutput toClientePedidoOutput(ClienteEntity entity) {
         return ClientePedidoOutput.builder()
                 .id(entity.getId())
-                .nome(entity.getNome())
-                .email(entity.getEmail())
+//                .nome(entity.getNome())
+//                .email(entity.getEmail())
                 .documento(entity.getDocumento())
                 .telefone(entity.getTelefone())
                 .build();

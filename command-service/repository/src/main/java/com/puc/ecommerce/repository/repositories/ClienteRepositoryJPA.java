@@ -18,8 +18,9 @@ public interface ClienteRepositoryJPA extends JpaRepository<ClienteEntity, Long>
     @Query("UPDATE ClienteEntity c SET c.telefone = :telefone, c.endereco = :endereco WHERE c.keycloakId = :keycloakId")
     ClienteEntity updateCliente(@Param("keycloakId") UUID keycloakId, @Param("telefone") String telefone, @Param("endereco") EnderecoEntity endereco);
 
-    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM ClienteEntity c WHERE c.keyCloqueId = :keycloakId")
-    Boolean existsByKeycloakId(@Param("keycloakId") UUID keyCloqueId);
+    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN true ELSE false END FROM ClienteEntity c WHERE c.keycloakId = :keycloakId")
+    @Modifying
+    boolean existsByKeycloakId(@Param("keycloakId") UUID keycloakId);
 
     Optional<ClienteEntity> findByKeycloakId(UUID keyCloqueId);
 
