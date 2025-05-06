@@ -19,15 +19,9 @@ public class EstoqueController {
     public ResponseEntity<String> adicionarProdutoEstoque(
             @PathVariable Long estoqueId,
             @Valid
-            @Min(value  = 1, message = "A quantidade deve ser maior ou igual a 1") @PathVariable Integer quantidade
-    ){
+            @Min(value = 1, message = "A quantidade deve ser maior ou igual a 1") @PathVariable Integer quantidade
+    ) {
         estoqueService.adicionarProdutoEstoque(estoqueId, quantidade);
         return ResponseEntity.ok("Quantidade adicionada com sucesso");
-    }
-
-    @PatchMapping("/{estoqueId}/remover/{quantidade}")
-    public ResponseEntity<String> removerProdutoEstoque(@PathVariable Long estoqueId, @Min(1) @PathVariable Integer quantidade){
-        estoqueService.removerProdutoEstoque(estoqueId, quantidade);
-        return ResponseEntity.ok("Quantidade removida com sucesso");
     }
 }
