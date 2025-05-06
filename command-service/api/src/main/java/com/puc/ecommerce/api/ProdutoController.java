@@ -16,19 +16,21 @@ public class ProdutoController {
 
     private final ProdutoService produtoService;
 
-    @PreAuthorize("hasRole('PRODUTO_ADICIONAR')")
+    @PreAuthorize("hasAnyRole('ADMIN', 'PRODUTO_ADICIONAR')")
     @PostMapping("/adicionar")
     public ResponseEntity<String> criarProduto(@Valid @RequestBody ProdutoInput produtoInput) throws Exception {
         produtoService.criarProduto(produtoInput);
         return ResponseEntity.status(201).body("Produto criado com sucesso");
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PRODUTO_ATUALIZAR')")
     @PutMapping("atualizar/{id}")
     public ResponseEntity<String> atualizarProduto(@PathVariable Long id, @Valid @RequestBody ProdutoUpdateInput produtoInput) {
         produtoService.atualizarProduto(id, produtoInput);
         return ResponseEntity.ok("Produto atualizado com sucesso");
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'PRODUTO_DELETAR')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarProduto(@PathVariable Long id) throws Exception {
         produtoService.deletarProduto(id);

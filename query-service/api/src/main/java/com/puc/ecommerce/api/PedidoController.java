@@ -2,8 +2,7 @@ package com.puc.ecommerce.api;
 
 import com.puc.ecommerce.output.boundary.pedido.PedidoOutput;
 import com.puc.ecommerce.output.boundary.pedido.PedidoService;
-import com.puc.ecommerce.output.boundary.produtos.ProdutoOutput;
-import com.puc.ecommerce.output.boundary.produtos.ProdutoService;
+import com.puc.ecommerce.security.annotations.PublicEndpoint;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,11 +16,13 @@ public class PedidoController {
 
     private final PedidoService pedidoService;
 
+    @PublicEndpoint
     @GetMapping("/{id}")
     public ResponseEntity<PedidoOutput> buscarPedidoPorId(@PathVariable Long id) throws Exception {
         return ResponseEntity.ok(pedidoService.buscarPedidoPorId(id));
     }
 
+    @PublicEndpoint
     @GetMapping("/buscar")
     public ResponseEntity<List<PedidoOutput>> buscarPedidoPorCliente(@RequestParam Long idCliente) {
         return ResponseEntity.ok(pedidoService.buscarPedidoPorCliente(idCliente));

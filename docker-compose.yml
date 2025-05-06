@@ -48,9 +48,12 @@ services:
     environment:
       - KC_BOOTSTRAP_ADMIN_USERNAME=admin
       - KC_BOOTSTRAP_ADMIN_PASSWORD=admin
+      - KC_IMPORT=/opt/keycloak/data/import/realm-export.json
+    volumes:
+      - ./.docker/kc/realm-export.json:/opt/keycloak/data/import/realm-export.json
     ports:
       - "7001:8080"
-    command: start-dev --features authorization,organization
+    command: start-dev --features authorization,organization --import-realm
     restart: unless-stopped
     networks:
       - ecommerce-network

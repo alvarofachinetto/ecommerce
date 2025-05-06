@@ -5,7 +5,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,6 +15,7 @@ public class EstoqueController {
 
     private EstoqueService estoqueService;
 
+    @PreAuthorize("hasAnyRole('ADMIN', 'ESTOQUE_ATUALIZAR')")
     @PatchMapping("/{estoqueId}/adicionar/{quantidade}")
     public ResponseEntity<String> adicionarProdutoEstoque(
             @PathVariable Long estoqueId,
