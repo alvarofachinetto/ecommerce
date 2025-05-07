@@ -3,4 +3,5 @@ dependencies {
     implementation(project(':query-service:repository'))
     implementation(project(':query-service:api'))
     implementation(project(':query-service:usecases'))
+    implementation(project(':shared-library:security'))
 }

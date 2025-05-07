@@ -14,9 +14,9 @@ findProject(':query-service:usecases')?.name = 'usecases'
 include 'query-service:repository'
 findProject(':query-service:repository')?.name = 'repository'
 include 'shared-library'
+include 'shared-library:security'
 include 'replication-service'
 
 
 include 'query-service:output-boundary'
 include 'query-service:application'
-include 'shared-library:security'
